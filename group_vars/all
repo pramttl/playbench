@@ -1,3 +1,7 @@
 geekbench: "Geekbench-3.4.1-Linux"
 
 geekbench_stdout: "{{ lookup('file', 'test_geekbench_op.txt') }}"
+
+benchmarking_dir: "/root/benchmarking"
+geekbench_stdout_fname: "{{ benchmarking_dir}}/geekbench_output.txt"
+geekbench_stdout_parser: "parse_stdout_to_url.py"

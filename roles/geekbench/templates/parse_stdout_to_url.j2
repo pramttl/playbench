@@ -1,0 +1,9 @@
+# Python file to parse geekbench stdout
+
+f = open("{{ geekbench_stdout_fname }}", 'r')
+s = f.read()
+import re
+pattern = re.compile("(http:\/\/browser\.primatelabs\.com\/geekbench3\/\d+)")
+match_obj = re.search(pattern, s)
+result_url = match_obj.groups()[0]
+print result_url

@@ -6,41 +6,73 @@
     - libstdc++.i686
 
 - name: Create benchmarking directory
-  file: path=/root/benchmarking state=directory
+  file: path={{ benchmarking_dir }} state=directory
 
 - name: Download the geekbench tarball
-  get_url: url=http://il0.ca/downloads/{{ geekbench }}.tar.gz dest=/root/benchmarking/ mode=0440
+  get_url: url="http://il0.ca/downloads/{{ geekbench }}.tar.gz" dest="{{ benchmarking_dir }}/" mode=0440
 
 - name: Unarchive the tarball
   shell: "tar zxf {{ geekbench }}.tar.gz"
   args:
-    chdir: /root/benchmarking/
+    chdir: "{{ benchmarking_dir }}/"
 
 - name: Chmod geekbench executable
-  file: path=/root/benchmarking/dist/{{ geekbench }}/geekbench state=file mode="a+x"
+  file: path="{{ benchmarking_dir }}/dist/{{ geekbench }}/geekbench" state=file mode="a+x"
 
-- shell: ./geekbench
+- name: Copy the python parser (geekbench url extractor) upstream
+  template: src=parse_stdout_to_url.j2
+            dest="{{ benchmarking_dir }}/{{ geekbench_stdout_parser }}"
+            backup=yes
+
+- name: Start the geekbench benchmark. This may take some time..
+  shell: ./geekbench
   args:
-    chdir: /root/benchmarking/dist/{{ geekbench }}/
+    chdir: "{{ benchmarking_dir }}/dist/{{ geekbench }}/"
   register: geekbench_output
 
+# Creates a new variable geekbench_stdout from geekbench_output
+# This step is redundant but added because default geekbench_stdout
+# is used if this step is not run. Useful for debugging as geekbench
+# takes 10 minutes to run. This step and prev step can be disabled
+# by setting when: false
 - set_fact:
     geekbench_stdout: "{{ geekbench_output.stdout }}"
 
+- name: Copy geekbench output to geekbench stdout file
+  copy: content="{{ geekbench_stdout }}" dest="{{ geekbench_stdout_fname }}"
+
+- name: Run the python script to get results url from geekbench stdout
+  shell: python {{ geekbench_stdout_parser }}
+  args:
+    chdir: "{{ benchmarking_dir }}/"
+  register: results_url
+
+- name: Copy the python results_url scraper/parser script to remote server
+  copy: src=geekbench_results_parser.py
+        dest="{{ benchmarking_dir }}/geekbench_results_parser.py"
+
+- name: Parse the scores from the geekbench results_url
+  shell: python geekbench_results_parser.py {{ results_url.stdout }}
+  args:
+    chdir: "{{ benchmarking_dir }}/"
+  register: geekbench_scores
+
+- debug: msg="{{ geekbench_scores.stdout }}"
+
 #- set_fact: pattern="http:\/\/browser\.primatelabs\.com\/geekbench3\/\d+"
-- set_fact: pattern='http:\/\/browser\.primatelabs\.com\/geekbench3\/(?P<resid>\d+)'
-  tags:
-    - var
+#- set_fact: pattern='http:\/\/browser\.primatelabs\.com\/geekbench3\/(?P<resid>\d+)'
+#  tags:
+#    - var
 
-- name: Extract geekbench result url
-  set_fact: result_url="{{ geekbench_stdout | regex_replace(pattern, '\\g<1>' }}"
-  when: geekbench_stdout | search(pattern)
-  tags:
-    - var
+#- name: Extract geekbench result url
+#  set_fact: result_url="{{ geekbench_stdout | regex_replace(pattern, '\\g<1>' }}"
+#  when: geekbench_stdout | search(pattern)
+#  tags:
+#    - var
 
-- debug: msg="{{ result_url }}"
-  tags:
-    - var
+#- debug: msg="{{ result_url }}"
+#  tags:
+#    - var
 
 #- debug: var=result_url verbosity=2
 #  tags:

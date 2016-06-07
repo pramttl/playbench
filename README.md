@@ -18,7 +18,7 @@ Each benchmark is divided into it's own ansible role. You can apply these roles/
 
 ## Create inventory / host file
 	
-Cerate an inventory file called `hosts` with the following sections:
+Create an inventory file called `hosts` at the root level of this directory with the following section:
 
 	[baremetal]
 	<baremetal_node_ip>
