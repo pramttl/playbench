@@ -1,0 +1,3 @@
+geekbench: "Geekbench-3.4.1-Linux"
+
+geekbench_stdout: "{{ lookup('file', 'test_geekbench_op.txt') }}"

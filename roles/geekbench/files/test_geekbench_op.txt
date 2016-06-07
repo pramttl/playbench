@@ -1,0 +1,80 @@
+[root@intel-veritas Geekbench-3.1.6-Linux]# ./geekbench
+Geekbench 3.1.6 Tryout : http://www.primatelabs.com/geekbench/
+
+Geekbench is in tryout mode.
+
+Benchmark results can only be viewed online when Geekbench is in tryout mode.
+Other features, like 64-bit benchmarks and hardware stress tests, are also
+unavailable in tryout mode.
+
+Purchase a license to remove the limitations of tryout mode.
+
+If you would like to purchase Geekbench you can do so online:
+
+  https://store.primatelabs.com/
+
+If you have already purchased Geekbench, enter your email address and license
+key from your email receipt with the following command line:
+
+  ./geekbench -r <email address> <license key>
+
+  Running Gathering system information
+System Information
+  Operating System      Linux 3.10.0-327.13.1.el7.x86_64 x86_64
+  Model                 Intel Corporation S2600GZ
+  Motherboard           Intel Corporation S2600GZ
+  Processor             Intel Xeon E5-2680 @ 3.50 GHz
+                        2 Processors, 16 Cores, 32 Threads
+  Processor ID          GenuineIntel Family 6 Model 45 Stepping 7
+  L1 Instruction Cache  32.0 KB x 8
+  L1 Data Cache         32.0 KB x 8
+  L2 Cache              256 KB x 8
+  L3 Cache              20.0 MB
+  Memory                165 GB
+  BIOS                  Intel Corp. SE5C600.86B.02.05.0004.051120151007
+  Compiler              Clang 3.3 (tags/RELEASE_33/final)
+
+Integer
+  Running AES
+  Running Twofish
+  Running SHA1
+  Running SHA2
+  Running BZip2 Compress
+  Running BZip2 Decompress
+  Running JPEG Compress
+  Running JPEG Decompress
+  Running PNG Compress
+  Running PNG Decompress
+  Running Sobel
+  Running Lua
+  Running Dijkstra
+
+Floating Point
+  Running BlackScholes
+  Running Mandelbrot
+  Running Sharpen Filter
+  Running Blur Filter
+  Running SGEMM
+  Running DGEMM
+  Running SFFT
+  Running DFFT
+  Running N-Body
+  Running Ray Trace
+
+Memory
+  Running Stream Copy
+  Running Stream Scale
+  Running Stream Add
+  Running Stream Triad
+
+
+Uploading results to the Geekbench Browser. This could take a minute or two
+depending on the speed of your internet connection.
+
+Upload succeeded. Visit the following link and view your results online:
+
+  http://browser.primatelabs.com/geekbench3/6872346
+
+Visit the following link and add this result to your profile:
+
+  http://browser.primatelabs.com/geekbench3/claim/6872346?key=221084

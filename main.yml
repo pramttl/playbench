@@ -1,0 +1,7 @@
+---
+- name: Install benchmarks on baremetal machine
+  hosts: baremetal
+  remote_user: root
+
+  roles:
+    - geekbench

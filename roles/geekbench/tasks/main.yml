@@ -1,0 +1,55 @@
+- name: Install geekbench dependencies
+  package: name="{{ item }}" state=latest
+  with_items:
+    - glibc.i686 
+    - libstdc++
+    - libstdc++.i686
+
+- name: Create benchmarking directory
+  file: path=/root/benchmarking state=directory
+
+- name: Download the geekbench tarball
+  get_url: url=http://il0.ca/downloads/{{ geekbench }}.tar.gz dest=/root/benchmarking/ mode=0440
+
+- name: Unarchive the tarball
+  shell: "tar zxf {{ geekbench }}.tar.gz"
+  args:
+    chdir: /root/benchmarking/
+
+- name: Chmod geekbench executable
+  file: path=/root/benchmarking/dist/{{ geekbench }}/geekbench state=file mode="a+x"
+
+- shell: ./geekbench
+  args:
+    chdir: /root/benchmarking/dist/{{ geekbench }}/
+  register: geekbench_output
+
+- set_fact:
+    geekbench_stdout: "{{ geekbench_output.stdout }}"
+
+#- set_fact: pattern="http:\/\/browser\.primatelabs\.com\/geekbench3\/\d+"
+- set_fact: pattern='http:\/\/browser\.primatelabs\.com\/geekbench3\/(?P<resid>\d+)'
+  tags:
+    - var
+
+- name: Extract geekbench result url
+  set_fact: result_url="{{ geekbench_stdout | regex_replace(pattern, '\\g<1>' }}"
+  when: geekbench_stdout | search(pattern)
+  tags:
+    - var
+
+- debug: msg="{{ result_url }}"
+  tags:
+    - var
+
+#- debug: var=result_url verbosity=2
+#  tags:
+#    - var
+
+#yum install -y libstdc++.i686
+#wget http://il0.ca/downloads/Geekbench-3.4.1-Linux.tar.gz
+#tar zxf Geekbench-3.4.1-Linux.tar.gz
+#cd dist
+#cd Geekbench-3.4.1-Linux
+#chmod +x geekbench
+#./geekbench

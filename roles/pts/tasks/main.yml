@@ -1,0 +1,21 @@
+- name: Install package dependencies
+  package: name="{{ item }}" state=latest
+  with_items:
+    - phoronix-test-suite
+    - unzip
+
+- name: Creates benchmarks directory
+  file: path=/root/benchmarks/ state=directory
+#
+#- name: Download Intel MKL benchmark suite which includes linpack
+#  get_url: url=http://registrationcenter-download.intel.com/akdlm/irc_nas/9128/{{ intel_mkl_benchmark_tgz }} dest=/root/benchmarks/{{ intel_mkl_benchmark_tgz }}
+#
+#- name: Unarchive Intel MKL benchmark
+#  shell: tar zxvf {{ intel_mkl_benchmark_tgz }}
+#  args:
+#    chdir: "/root/benchmarks/"
+
+- name: Running the HPCC benchmark which includes linpack
+  shell: phoronix-test-suite benchmark hpcc
+  args:
+    chdir: "/root/benchmarks/"
