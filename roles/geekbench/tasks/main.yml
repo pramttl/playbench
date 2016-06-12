@@ -59,6 +59,8 @@
 
 - debug: msg="{{ geekbench_scores.stdout }}"
 
+# Todo: Write geekbench_scores.stdout to a file and fetch
+
 #- set_fact: pattern="http:\/\/browser\.primatelabs\.com\/geekbench3\/\d+"
 #- set_fact: pattern='http:\/\/browser\.primatelabs\.com\/geekbench3\/(?P<resid>\d+)'
 #  tags:

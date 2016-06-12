@@ -1,0 +1,9 @@
+- name: Install KVM dependencies and related packages
+  package:
+    name: '{{ item }}'
+    state: 'latest'
+  with_items: [ 'kvm', 'qemu-kvm', 'python-virtinst', 'libvirt', 'libvirt-python', 'virt-manager',
+                'libguestfs-tools', 'libvirt-bin', 'netcat-openbsd', 'gawk', 'qemu-system', 'pm-utils',
+                'ebtables', 'qemu-kvm' ]
+
+  #https://uec-images.ubuntu.com/releases/14.04/release/ubuntu-14.04-server-cloudimg-amd64.tar.gz
