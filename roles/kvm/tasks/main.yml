@@ -4,6 +4,6 @@
     state: 'latest'
   with_items: [ 'kvm', 'qemu-kvm', 'python-virtinst', 'libvirt', 'libvirt-python', 'virt-manager',
                 'libguestfs-tools', 'libvirt-bin', 'netcat-openbsd', 'gawk', 'qemu-system', 'pm-utils',
-                'ebtables', 'qemu-kvm' ]
+                'ebtables', 'qemu-kvm', 'qemu-common', 'qemu-system-x86.x86_64']
 
-  #https://uec-images.ubuntu.com/releases/14.04/release/ubuntu-14.04-server-cloudimg-amd64.tar.gz
+#https://uec-images.ubuntu.com/releases/14.04/release/ubuntu-14.04-server-cloudimg-amd64.tar.gz

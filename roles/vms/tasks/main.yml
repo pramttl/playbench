@@ -1,0 +1,8 @@
+- name: define vm1
+  virt: name=vm1
+        command=define
+        xml="{{ lookup('template', 'vm-template.xml.j2') }}"
+        uri=qemu:///system
+
+- name: start vm
+  virt: name=vm1 state=running uri=qemu:///system
