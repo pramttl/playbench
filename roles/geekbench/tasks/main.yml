@@ -5,9 +5,6 @@
     - libstdc++
     - libstdc++.i686
 
-- name: Create benchmarking directory
-  file: path={{ benchmarking_dir }} state=directory
-
 - name: Download the geekbench tarball
   get_url: url="http://il0.ca/downloads/{{ geekbench }}.tar.gz" dest="{{ benchmarking_dir }}/" mode=0440
 

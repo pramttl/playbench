@@ -1,0 +1,5 @@
+- name: Create benchmarking directory if not exists
+  file: path={{ benchmarking_dir }} state=directory
+
+- name: Create VMS subdirectory within benchmarking directory
+  file: path={{ vms_dir }} state=directory

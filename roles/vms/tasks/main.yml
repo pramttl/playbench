@@ -1,8 +1,17 @@
-- name: define vm1
-  virt: name=vm1
-        command=define
-        xml="{{ lookup('template', 'vm-template.xml.j2') }}"
-        uri=qemu:///system
+#- name: define vm1
+#  virt: name=vm1
+#        command=define
+#        xml="{{ lookup('template', 'vm-template.xml.j2') }}"
+#        uri=qemu:///system
 
-- name: start vm
-  virt: name=vm1 state=running uri=qemu:///system
+#- name: start vm
+#  virt: name=vm1 state=running uri=qemu:///system
+
+- name: Create the VM configiration file
+  template: src=vm-template.xml.j2
+            dest={{ vms_dir }}/vms.xml
+
+#- name: Defining a VM
+#  shell: virsh -c {{ qemu_url }} define vm.xml
+#  args:
+#    chdir: "/root/benchmarks/"
