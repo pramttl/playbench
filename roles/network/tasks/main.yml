@@ -1,0 +1,10 @@
+- name: define {{ network_name }}
+  virt_net: name={{ network_name }}
+        command=define
+        xml="{{ lookup('template', 'network-template.xml.j2') }}"
+        uri=qemu:///system
+ - name: start {{ network_name }}
+   virt_net: name={{ network_name }}
+             state=active 
+             uri=qemu:///system
+
