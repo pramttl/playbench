@@ -1,7 +1,7 @@
 <domain type='kvm'>
-  <name>{{name}}</name>
-  <memory>{{memory}}</memory>
-  <vcpu>{{cpu}}</vcpu>
+  <name>{{ vm_name }}</name>
+  <memory>{{ memory_mb }}</memory>
+  <vcpu>{{ nvcpus }}</vcpu>
   <os>
     <type arch='x86_64' machine='pc-1.0'>hvm</type>
     <boot dev='hd'/>
@@ -18,8 +18,8 @@
   <devices>
     <emulator>/usr/bin/kvm</emulator>
     <disk type='file' device='disk'>
-      <driver name='qemu' type='{{format}}'/>
-      <source file='/var/lib/libvirt/images/{{name}}.img'/>
+      <driver name='qemu' type='{{ image_format }}'/>
+      <source file='{{ local_img_file }}'/>
       <target dev='vda' bus='virtio'/>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x05' function='0x0'/>
     </disk>
@@ -32,22 +32,11 @@
     <controller type='ide' index='0'>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x01' function='0x1'/>
     </controller>
-{% for nic in nics %}
-{% if nic['net_type'] == 'NAT' or nic['net_type'] == 'NETWORK' %}
-    <interface type='network'>
-      <source network='{{nic['net_name']}}'/>
-{% else %}
-    <interface type='bridge'>
-      <source bridge='{{nic['net_name']}}'/>
-{% endif %}
-      <mac address='{{nic['mac']}}'/>
+     <interface type='{{ network_type }}'>
+      <mac address='{{ mac_addr }}'/>
+      <source network='{{ network_source }}' bridge='{{ bridge }}'/>
       <model type='virtio'/>
-{% if nic['targetdev'] %}
-      <target dev='{{nic['targetdev']}}'/>
-{% endif %}
-      <address type='pci' domain='0x0000' bus='0x00' slot='{{nic['slot']}}' function='0x0'/>
-    </interface>
-{% endfor %}
+     </interface>
     <serial type='pty'>
       <target port='0'/>
     </serial>
