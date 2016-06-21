@@ -7,11 +7,26 @@
 #- name: start vm
 #  virt: name=vm1 state=running uri=qemu:///system
 
-- name: Create the VM configiration file
-  template: src=vm-template.xml.j2
-            dest={{ vms_dir }}/vms.xml
-
+#- name: Create the VM configiration file
+#  template: src=vm-template.xml.j2
+#            dest={{ vms_dir }}/vms.xml
+#
 #- name: Defining a VM
 #  shell: virsh -c {{ qemu_url }} define vm.xml
 #  args:
 #    chdir: "/root/benchmarks/"
+- name: define {{ vm_name }}
+  virt: name={{ vm_name }}
+        command=define
+        xml="{{ lookup('template', 'vm-template-old.xml.j2') }}"
+        uri=qemu:///system
+        
+- name: assign ip address to {{ vm_name }}
+  virt_net: name = {{network_source }}
+            command = modify
+            xml = "{{ lookup('template','host-ip-assignment-template.xml.j2') }}"
+            uri=qemu:///system
+        
+- name: start {{ vm_name }}
+  virt: name={{vm_name }} state=running uri=qemu:///system
+
