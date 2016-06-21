@@ -2,7 +2,7 @@ geekbench: "Geekbench-3.4.1-Linux"
 
 geekbench_stdout: "{{ lookup('file', 'test_geekbench_op.txt') }}"
 
-benchmarking_dir: "/root/benchmarking"
+benchmarking_dir: "/home/abhinav/benchmarking-playbook/benchmarking"
 vms_dir: "{{ benchmarking_dir }}/vms"
 geekbench_stdout_fname: "{{ benchmarking_dir}}/geekbench_output.txt"
 geekbench_stdout_parser: "parse_stdout_to_url.py"
@@ -12,8 +12,22 @@ geekbench_stdout_parser: "parse_stdout_to_url.py"
 qemu_url: 'qemu:///system'
 
 # This file should exist at /var/lib/libvirt/images/ on the host machine
-local_img_file_name: 'image_file_small.img'
+#local_img_file_name: 'image_file_small.img'
 
-vm_name: "testvm"
-memory_mb: 512
+#vm_name: "testvm"
+#memory_mb: 512
+#nvcpus: 2
+
+################ Testing VM template ################
+#by abhinav
+
+vm_name: 'domain0'
+memory_mb: 2048
 nvcpus: 2
+local_image_file: '/home/abhinav/guest3.qcow2'
+image_format: 'qcow2'
+network_type: 'network'
+mac_addr: '52:54:00:e7:e8:69'
+network_source: 'default'
+network_bridge: 'virbr0'
+vm_ip:
