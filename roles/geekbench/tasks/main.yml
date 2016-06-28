@@ -5,9 +5,13 @@
 #    - glibc.i686 
 #    - libstdc++
 #    - libstdc++.i686
+#  tags:
+#    - centos_only
 
 - name: dpkg --add-architecture i386
   shell: dpkg --add-architecture i386
+  tags:
+    - ubuntu_only
 
 # This works for apt packages / ubuntu
 - name: Install geekbench dependencies
@@ -17,6 +21,8 @@
     - python-pip
     - libc6:i386
     - libstdc++6:i386
+  tags:
+    - ubuntu_only
 
 - name: Download the geekbench tarball
   get_url: url="http://il0.ca/downloads/{{ geekbench }}.tar.gz" dest="{{ benchmarking_dir }}/" mode=0440
