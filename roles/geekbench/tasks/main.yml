@@ -1,9 +1,19 @@
+# This is commented because it works for yum and not apt packages
+#- name: Install geekbench dependencies
+#  package: name="{{ item }}" state=latest
+#  with_items:
+#    - glibc.i686 
+#    - libstdc++
+#    - libstdc++.i686
+
+# This works for apt packages / ubuntu
 - name: Install geekbench dependencies
   package: name="{{ item }}" state=latest
   with_items:
-    - glibc.i686 
-    - libstdc++
-    - libstdc++.i686
+    - python-setuptools
+    - python-pip
+    - libc6:i386
+    - libstdc++6:i386
 
 - name: Download the geekbench tarball
   get_url: url="http://il0.ca/downloads/{{ geekbench }}.tar.gz" dest="{{ benchmarking_dir }}/" mode=0440
@@ -37,6 +47,9 @@
 
 - name: Copy geekbench output to geekbench stdout file
   copy: content="{{ geekbench_stdout }}" dest="{{ geekbench_stdout_fname }}"
+
+- name: Install beautifulsoup4
+  pip: name=beautifulsoup4
 
 - name: Run the python script to get results url from geekbench stdout
   shell: python {{ geekbench_stdout_parser }}
