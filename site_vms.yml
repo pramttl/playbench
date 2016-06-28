@@ -1,11 +1,8 @@
 ---
 - name: Starting playbook and applying roles
-  hosts: baremetal
+  hosts: vms
   remote_user: root
 
   roles:
     - common
-
- #  - geekbench
- #   - kvm
-    - vms
+    - geekbench

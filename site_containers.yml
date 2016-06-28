@@ -1,0 +1,9 @@
+---
+- name: Starting playbook and applying roles
+  hosts: containers
+  remote_user: root
+  connection: docker
+
+  roles:
+    - common
+    - geekbench

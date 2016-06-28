@@ -1,0 +1,8 @@
+---
+- name: Starting playbook and applying roles
+  hosts: baremetal
+  remote_user: root
+
+  roles:
+    - common
+    - geekbench

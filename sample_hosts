@@ -1,0 +1,8 @@
+[baremetal]
+localhost
+
+[vms]
+192.168.152.31
+
+[containers]
+ae27a97a14bb ansible_connection=docker
