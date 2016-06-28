@@ -6,9 +6,12 @@
 #    - libstdc++
 #    - libstdc++.i686
 
+- name: dpkg --add-architecture i386
+  shell: dpkg --add-architecture i386
+
 # This works for apt packages / ubuntu
 - name: Install geekbench dependencies
-  package: name="{{ item }}" state=latest
+  package: name="{{ item }}" state=latest update_cache=yes
   with_items:
     - python-setuptools
     - python-pip
