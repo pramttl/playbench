@@ -28,4 +28,4 @@ scores.append(str(section_table[2].findAll('th')[1].contents[0]))
 scores.append(str(section_table[2].findAll('th')[4].contents[0]))
 
 #print 'Single-Core Score, Multi-Core Score, Integer Perf Single-core, Integer Perf Multi-core, Float Perf Single-core, Float Perf Multi-core, Memory Single Core, Memory Multi Core'
-print ",".join(scores)
+print "\t".join(scores)
