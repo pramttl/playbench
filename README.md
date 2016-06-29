@@ -39,3 +39,18 @@ A sample inventory/hosts file is given along `sample_hosts`, however you can cre
 
 	# Running benchmark roles on [containers] (as defined in hosts file)
 	ansible-playbook -i sample_hosts site_vms.yml
+
+## Creating VMs
+ 
+This documentation section is Todo. You can create VMs whichever way you like and add to hosts file.
+
+## Creating docker containers
+
+The following command will pull in a bare-bones ubuntu container with python installed so that it can be configured via ansible. (All hosts that can be configured with ansible require python running on them. Note that, you can also use your own container(s) as long as they have python installed on them)
+
+	docker pull pramttl/ubuntu-python
+
+	# Start a container with the pulled image
+	docker run -it pramttl/ubuntu-python
+
+	# Press Ctrl+p Ctrl+q, to exit container shell and keep it running in background
