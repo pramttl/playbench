@@ -1,0 +1,52 @@
+[global]
+ioengine=libaio
+direct=1
+size=1g
+group_reporting
+thread
+filename=/root/fio-test-file
+
+[sequential-fill]
+description=Sequential fill phase
+rw=write
+iodepth=16
+bs=1M
+
+[seq-read]
+rw=read
+bs=1M
+stonewall
+
+[random-write-16]
+stonewall
+description=Random write steady state phase
+rw=randwrite
+bs=4K
+iodepth=16
+runtime=60
+
+[random-read-16]
+stonewall
+description=Random read steady state phase
+rw=randread
+bs=4K
+iodepth=16
+runtime=60
+
+[random-read-16]
+stonewall
+description=Random read steady state phase
+rw=randread
+bs=4K
+iodepth=16
+numjobs=8
+runtime=60
+
+[mixed-random-rw-32x8]
+stonewall
+rw=randrw
+rwmixread=70
+bs=4K
+iodepth=32
+numjobs=8
+runtime=60

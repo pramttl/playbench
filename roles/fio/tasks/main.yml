@@ -1,0 +1,30 @@
+- name: Install fio
+  package:
+    name: '{{ item }}'
+    state: 'latest'
+  with_items: [ 'fio' ]
+
+
+- name: Copy the fio benchmark file to remote server
+  copy: src=benchmarkconfig.fio
+        dest="{{ benchmarking_dir }}/benchmarkconfig.fio"
+
+
+- name: Start the fio benchmark. This may take some time..
+  shell: fio benchmarkconfig.fio > fioresults
+  args:
+    chdir: "{{ benchmarking_dir }}/"
+
+
+- name: Copy the parse to remote server
+  copy: src=fioparser.sh
+        dest="{{ benchmarking_dir }}/fioparser.sh"
+
+
+- name: Run the fioparser on results
+  shell: bash fioparser.sh fioresults
+  args:
+    chdir: "{{ benchmarking_dir }}/"
+  register: fio_results
+
+- debug: msg="{{ fio_results.stdout }}"

@@ -6,3 +6,5 @@
   roles:
     - common
     - geekbench
+    - geekbench
+    # - fio
