@@ -17,6 +17,28 @@ There are other experimental non-benchmark roles like `kvm` and `vms` that are i
 
 - geekbench
 
+The final output of this role which is printed out by ansible debug are 16 values:
+
+```
+# CPU Scores
+single-core-score
+multi-core-score
+single-core-integer
+multi-core-integer
+single-core-floating
+multi-core-floating
+single-core-memory
+multi-core-memory
+stream-copy-single-core
+stream-copy-multi-core
+stream-scale-single-core
+stream-scale-multi-core
+stream-add-single-core
+stream-add-multi-core
+stream-triad-single-core
+stream-triad-multi-core
+```
+
 (Tested on ubuntu VM and container instances)
 
 ## What does each (benchmark) role do?
