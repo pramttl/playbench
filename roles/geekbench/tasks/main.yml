@@ -76,7 +76,7 @@
     chdir: "{{ benchmarking_dir }}/"
   register: geekbench_scores
 
-- debug: msg="{{ geekbench_scores.stdout }}"
+- debug: msg="{{ num_hosts }}\t{{ geekbench_scores.stdout }}"
 
 # Todo: Write geekbench_scores.stdout to a file and fetch
 

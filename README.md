@@ -17,10 +17,10 @@ There are other experimental non-benchmark roles like `kvm` and `vms` that are i
 
 - geekbench
 
-The final output of this role which is printed out by ansible debug are 16 values:
+The final output of this role which is printed out by ansible debug are 17 values:
 
 ```
-# CPU Scores
+num_hosts  # num of hosts on which benchmark ran
 single-core-score
 multi-core-score
 single-core-integer

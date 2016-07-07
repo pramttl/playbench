@@ -1,10 +1,12 @@
 ---
 - name: Starting playbook and applying roles
   hosts: baremetal
+  gather_facts: false
   remote_user: root
+  vars:
+    num_hosts: "{{ groups['baremetal'] | length }}"
 
   roles:
     - common
-    - geekbench
     - geekbench
     # - fio
