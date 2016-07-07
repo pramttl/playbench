@@ -1,7 +1,6 @@
 ---
 - name: Starting playbook and applying roles
   hosts: vms
-  gather_facts: false
   remote_user: root
   vars:
     num_hosts: "{{ groups['vms'] | length }}"
